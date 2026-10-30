@@ -1,11 +1,62 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Projects from '../components/Projects.astro';
 ---
 
 <Layout>
-	<Welcome />
+    <Navbar />
+    <Hero />
+    <Projects />
+
+    <main>
+        
+<section id="about" class="page-section">
+  <p class="section-label">01 — GET TO KNOW ME</p>
+  <h2>About</h2>
+
+  <div class="about-content">
+    <div class="about-info">
+      <p>
+      I'm a Computer Science undergraduate specialising in Health Informatics
+      at VIT Bhopal University. I enjoy exploring technology, understanding
+      how things work, and bringing ideas to life through code.
+      </p>
+	</div>
+
+    <div class="about-tech">
+      <h3>Tech I've worked with</h3>
+       <p>
+        Java · Python · HTML · CSS · MySQL · Git · GitHub
+       </p>
+    </div>
+
+    <div class="about-beyond">
+     <h3>Beyond the screen</h3>
+      <p>
+       When I'm not coding, you'll probably find me watching anime,
+       following sports, or falling down some random rabbit hole.
+      </p>
+    </div>
+
+    <div class="about-photo">
+      <img src="/images/profile.jpg" alt="A photo of me" />
+    </div>
+  </div>
+</section>
+
+<Projects />
+
+<section id="experiments" class="page-section">
+  <p class="section-label">03 — LITTLE SIDE QUESTS</p>
+  <h2>Experiments</h2>
+</section>
+
+<section id="contact" class="page-section">
+  <p class="section-label">04 — SAY HELLO</p>
+  <h2>Let's connect.</h2>
+</section>
+
+    </main>
 </Layout>

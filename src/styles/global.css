@@ -1,0 +1,153 @@
+/* =================================
+   01. DESIGN TOKENS
+================================= */
+
+:root {
+    /* Colors */
+     --color-bg: #191f32;
+     --color-surface: #222A40;
+     --color-text: #c0cbcc;
+     --color-muted: #B5C0D4;
+     --color-accent: #4cc8c2;
+     --color-detail: #FF4FA3;
+
+    /* Typography */
+    --font-heading: 'Nunito Sans', sans-serif;
+    --font-body: 'Nunito Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+
+    /* Layout */
+    --page-width: 1200px;
+    --page-padding: 6vw;
+
+    /* Motion */
+    --transition-smooth: 250ms ease;
+}
+
+
+/* =================================
+   02. RESET
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =================================
+   03. BASE STYLES
+================================= */
+
+html {
+    scroll-behavior: smooth;
+    background: var(--color-bg);
+}
+
+body {
+    min-height: 100vh;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 20px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+}
+
+.editorial {
+    font-family: var(--font-editorial);
+}
+
+.mono {
+    font-family: var(--font-mono);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+
+/* =================================
+   04. SELECTION
+================================= */
+
+::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+}
+
+
+.page-section {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 6rem var(--page-padding);
+  scroll-margin-top: 5rem;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+}
+
+.page-section h2 {
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.about-photo {
+  width: 280px;
+  height: 320px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-text {
+  flex: 1;
+}
+
+@media (max-width: 700px) {
+  .about-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .about-photo {
+    width: 220px;
+    height: 250px;
+  }
+}

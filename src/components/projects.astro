@@ -1,0 +1,403 @@
+
+---
+const projects = [
+  {
+    number: "01",
+    name: "Solace",
+    category: "PERSONAL WORKSPACE",
+    description:
+      "An adaptive student workspace designed to make everyday planning feel a little less overwhelming.",
+    stack: ["React", "Vite", "Tailwind CSS"],
+    github: "https://github.com/sakshi-db/solace-sanctuary",
+    live: "https://solacesanctuary.vercel.app/",
+    visual: "solace",
+    visualLabel: "a little space to breathe."
+  },
+  {
+    number: "02",
+    name: "The Legacy Ledger",
+    category: "MEMORY & STORYTELLING",
+    description:
+      "A private, local-first space for preserving family histories, spoken memories and stories.",
+    stack: ["React", "Vite", "Tailwind CSS"],
+    github: "https://github.com/sakshi-db/the-legacy-ledger",
+    live: "https://the-legacy-ledger.vercel.app/",
+    visual: "legacy",
+    visualLabel: "stories worth keeping."
+  },
+  {
+    number: "03",
+    name: "RxGuard AI",
+    category: "HEALTHCARE",
+    description:
+      "A clinical decision-support interface for drug interaction checks and medication safety alerts.",
+    stack: ["HTML", "CSS", "JavaScript", "Tailwind"],
+    github: "https://github.com/sakshi-db/RxGuard-AI",
+    live: "https://rxguard-ai.vercel.app/",
+    visual: "rxguard",
+    visualLabel: "medication safety, at a glance."
+  }
+];
+---
+
+<section id="projects" class="projects-section">
+  <div class="projects-heading">
+    <div>
+      <p class="section-label">02 — THINGS I'VE MADE</p>
+      <h2>Software</h2>
+    </div>
+
+    <a
+      class="view-all"
+      href="https://github.com/sakshi-db?tab=repositories"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View all projects
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+
+  <div class="project-grid">
+    {projects.map((project) => (
+      <article class="project-card">
+        <div class={`project-visual ${project.visual}`}>
+          <span class="visual-number">{project.number}</span>
+          <span class="visual-name">{project.name}</span>
+          <span class="visual-message">{project.visualLabel}</span>
+          <span class="visual-decoration" aria-hidden="true"></span>
+        </div>
+
+        <div class="project-content">
+          <p class="project-category">{project.category}</p>
+
+          <div class="project-title-row">
+            <h3>{project.name}</h3>
+
+            <div class="project-links">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${project.name} source code on GitHub`}
+                title="GitHub repository"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 .297a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.4-1.33-1.77-1.33-1.77-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.62-2.8 5.64-5.48 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .297z"/>
+                </svg>
+              </a>
+
+              {project.live && (
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit ${project.name} website`}
+                  title="Live website"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M14 3h7v7" />
+                    <path d="M10 14 21 3" />
+                    <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+                  </svg>
+                </a>
+              )}
+            </div>
+          </div>
+
+          <p class="project-description">{project.description}</p>
+
+          <div class="project-stack">
+            {project.stack.map((tech) => (
+              <span>{tech}</span>
+            ))}
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <p class="more-projects">
+  More projects are taking shape. <span>Stay tuned.</span>
+</p>
+
+</section>
+
+<style>
+  .projects-section {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 6rem var(--page-padding);
+    scroll-margin-top: 5rem;
+  }
+
+  .projects-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+    margin-bottom: 2.5rem;
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+  }
+
+  .projects-heading h2 {
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+  }
+
+  .view-all {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: color var(--transition-smooth);
+  }
+
+  .view-all:hover {
+    color: var(--color-accent);
+  }
+
+  .view-all span {
+    color: var(--color-accent);
+    margin-left: 4px;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .project-card {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--color-surface);
+    border: 1px solid rgba(243, 243, 240, 0.07);
+    transition: transform var(--transition-smooth),
+                border-color var(--transition-smooth);
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(184, 255, 69, 0.35);
+  }
+
+  .project-visual {
+    height: 145px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 28px;
+  }
+
+  .solace {
+    background: #34483f;
+    color: #e5f1d9;
+  }
+
+  .legacy {
+    background: #554536;
+    color: #f4dfb9;
+  }
+
+  .rxguard {
+    background: #283d55;
+    color: #dceaff;
+  }
+
+  .visual-number {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    opacity: 0.7;
+  }
+
+  .visual-name {
+    font-family: var(--font-heading);
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    position: relative;
+    z-index: 1;
+  }
+
+  .visual-message {
+    font-size: 0.85rem;
+    margin-top: 5px;
+    opacity: 0.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .visual-decoration {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    right: -35px;
+    bottom: -85px;
+    opacity: 0.2;
+  }
+
+  .visual-decoration::before,
+  .visual-decoration::after {
+    content: "";
+    position: absolute;
+    inset: 15px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+  }
+
+  .visual-decoration::after {
+    inset: 35px;
+  }
+
+  .project-content {
+    padding: 18px;
+  }
+
+  .project-category {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+
+  .project-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .project-title-row h3 {
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .project-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .project-links a {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    color: var(--color-muted);
+    transition: color var(--transition-smooth),
+                transform var(--transition-smooth);
+  }
+
+  .project-links a:hover {
+    color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .project-links svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .project-links a:first-child svg {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  .project-description {
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-top: 10px;
+    min-height: 5em;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 18px;
+  }
+
+  .project-stack span {
+    color: var(--color-muted);
+    background: rgba(243, 243, 240, 0.06);
+    border-radius: 5px;
+    padding: 5px 9px;
+    font-size: 0.7rem;
+  }
+
+  @media (max-width: 900px) {
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-heading {
+    align-items: center;
+  }
+
+  .project-description {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .projects-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+
+.more-projects {
+  margin-top: 2.5rem;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.more-projects span {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.project-title-row h3 {
+  font-size: 1.05rem;
+  letter-spacing: -0.04em;
+}
+
+.legacy + .project-content .project-title-row h3 {
+  font-size: 0.95rem;
+}
+
+</style>

@@ -1,0 +1,180 @@
+
+<section class="hero" id="home">
+  <div class="intro">
+    <p class="eyebrow">A LITTLE INTRODUCTION</p>
+
+    <h1>Hey, I'm Sakshi!</h1>
+
+    <p class="intro-copy">
+      I'm learning my way through the world of software, figuring things
+      out by building, breaking, fixing, and trying again. I enjoy
+      exploring different corners of technology, experimenting with
+      ideas, and occasionally getting lost in interesting rabbit holes
+      along the way. There's always something new to learn, make, or
+      get curious about.
+    </p>
+  </div>
+
+  <div class="scene">
+    <svg class="tree" viewBox="0 0 440 440" role="img"
+      aria-label="An abstract tree made of branches and floating geometric shapes">
+      <!-- Ground -->
+      <path d="M65 385 Q220 365 375 385"
+        fill="none" stroke="#65718D" stroke-width="1.5" />
+
+      <!-- Trunk -->
+      <path d="M215 380 C210 330 225 280 211 235
+        C201 205 182 184 166 160"
+        fill="none" stroke="#E7E8EF" stroke-width="9"
+        stroke-linecap="round" />
+
+      <!-- Branches -->
+      <path d="M211 270 C175 250 145 220 123 185
+        M214 300 C253 266 277 229 292 188
+        M205 235 C236 205 245 172 245 139
+        M166 160 C145 142 130 121 127 98
+        M292 188 C320 166 333 142 337 119"
+        fill="none" stroke="#E7E8EF" stroke-width="6"
+        stroke-linecap="round" />
+
+      <!-- Geometric foliage -->
+      <rect x="102" y="78" width="48" height="48" rx="12"
+        fill="#B8FF45" transform="rotate(-12 126 102)" />
+      <circle cx="174" cy="135" r="25" fill="#FF4FA3" />
+      <rect x="222" y="105" width="43" height="43" rx="8"
+        fill="#B8FF45" transform="rotate(12 243 126)" />
+      <circle cx="292" cy="164" r="22" fill="#FF4FA3" />
+      <rect x="318" y="87" width="38" height="38" rx="9"
+        fill="#B8FF45" transform="rotate(18 337 106)" />
+      <circle cx="130" cy="194" r="13" fill="#B8FF45" />
+      <circle cx="264" cy="230" r="12" fill="#FF4FA3" />
+
+      <!-- Floating cubes -->
+      <g fill="none" stroke-width="2">
+        <path d="M70 275 l18 -10 18 10 -18 11z"
+          stroke="#FF4FA3" />
+        <path d="M88 286 v20 l18 -10 v-21"
+          stroke="#FF4FA3" />
+        <path d="M88 286 l-18 -11 v20 l18 11"
+          stroke="#FF4FA3" />
+        <path d="M340 270 l16 -9 16 9 -16 10z"
+          stroke="#B8FF45" />
+        <path d="M356 280 v18 l16 -9 v-19"
+          stroke="#B8FF45" />
+        <path d="M356 280 l-16 -10 v19 l16 9"
+          stroke="#B8FF45" />
+      </g>
+
+      <!-- Tiny details -->
+      <circle cx="82" cy="145" r="3" fill="#F3F3F0" />
+      <circle cx="370" cy="190" r="4" fill="#F3F3F0" />
+      <path d="M350 48 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z"
+        fill="#FF4FA3" />
+      <path d="M70 220 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"
+        fill="#B8FF45" />
+    </svg>
+
+    <!-- Our little explorer -->
+    <div class="alien" aria-label="A little alien companion">
+      <svg viewBox="0 0 60 65" aria-hidden="true">
+        <path d="M18 21 Q9 11 13 4 Q24 8 26 17
+          M42 21 Q51 11 47 4 Q36 8 34 17"
+          fill="none" stroke="#F3F3F0" stroke-width="4"
+          stroke-linecap="round" />
+        <path d="M9 31 Q9 13 30 13 Q51 13 51 31
+          L55 52 Q55 61 45 59 L15 59 Q5 61 5 52Z"
+          fill="#F3F3F0" />
+        <ellipse cx="21" cy="36" rx="3.5" ry="5" fill="#191F32" />
+        <ellipse cx="39" cy="36" rx="3.5" ry="5" fill="#191F32" />
+        <path d="M25 46 Q30 51 35 46"
+          fill="none" stroke="#FF4FA3" stroke-width="2.5"
+          stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    max-width: var(--page-width);
+    min-height: 76vh;
+    margin: 0 auto;
+    padding: 4rem var(--page-padding);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 2rem;
+    overflow: hidden;
+  }
+
+  .intro {
+    max-width: 540px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+
+  h1 {
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    font-size: clamp(2.6rem, 4.5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    margin: 1.1rem 0;
+  }
+
+  .intro-copy {
+    color: var(--color-muted);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  .scene {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .tree {
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .alien {
+    position: absolute;
+    width: 48px;
+    top: 34%;
+    right: 8%;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding-top: 3rem;
+      gap: 1rem;
+    }
+
+    .scene {
+      max-width: 340px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .alien {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,98 @@
+
+<nav class="navbar" aria-label="Main navigation">
+    <a href="/" class="logo" aria-label="sakshidb home">
+        sakshidb
+    </a>
+
+    <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experiments">Experiments</a>
+    </div>
+
+    <a href="#contact" class="contact-link">
+        Let's connect <span aria-hidden="true">↗</span>
+    </a>
+</nav>
+
+<style>
+    
+ .navbar {
+    width: min(100% - 80px, 1160px);
+    margin: 0 auto;
+    padding: 20px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: var(--color-bg);
+    border-bottom: 1px solid rgba(243, 243, 240, 0.2);
+}
+
+
+    .logo {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+}
+
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.nav-links a,
+.contact-link {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-muted);
+    transition: color var(--transition-smooth);
+}
+
+.nav-links a:hover,
+.contact-link:hover {
+    color: var(--color-text);
+}
+
+.contact-link {
+    color: var(--color-text);
+}
+
+.contact-link span {
+    display: inline-block;
+    transition: transform var(--transition-smooth);
+}
+
+.contact-link:hover span {
+    transform: translate(3px, -3px);
+}
+
+@media (max-width: 650px) {
+    .navbar {
+        width: calc(100% - 40px);
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .nav-links a {
+        font-size: 0.8rem;
+    }
+}
+</style>
