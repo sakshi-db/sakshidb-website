@@ -1,62 +1,141 @@
+
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
+import Intro from '../components/Intro.astro';
 import Projects from '../components/Projects.astro';
+import Blob from '../components/Blob.astro';
 ---
 
 <Layout>
-    <Navbar />
-    <Hero />
-    <Projects />
+  <Navbar />
+  <Intro />
 
-    <main>
-        
+  <main>
 <section id="about" class="page-section">
   <p class="section-label">01 — GET TO KNOW ME</p>
-  <h2>About</h2>
+  <h2>/ about me</h2>
 
   <div class="about-content">
-    <div class="about-info">
-      <p>
-      I'm a Computer Science undergraduate specialising in Health Informatics
-      at VIT Bhopal University. I enjoy exploring technology, understanding
-      how things work, and bringing ideas to life through code.
-      </p>
-	</div>
+    <div class="about-text">
+      <div class="about-info">
+        <p>
+          I'm a Computer Science undergraduate specialising in Health Informatics
+          at VIT Bhopal University. I enjoy exploring technology, understanding
+          how things work, and bringing ideas to life through code.
+        </p>
+      </div>
 
-    <div class="about-tech">
-      <h3>Tech I've worked with</h3>
-       <p>
-        Java · Python · HTML · CSS · MySQL · Git · GitHub
-       </p>
-    </div>
+     <div class="about-tech">
+       <h3>Tech I've worked with</h3>
+       <ul class="tech-list">
+       <li>
+         <svg class="tech-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+         Java
+      </li>
+      <li>
+        <svg class="tech-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M14.25 2.09c.14 0 .28.02.42.05 1.15.26 2.03 1.19 2.24 2.34l.32 1.74h-3.32l-.12-.62c-.11-.56-.63-.98-1.21-.98H9.37c-.63 0-1.15.48-1.21 1.11l-.04.45h4.13c1.66 0 3.01 1.35 3.01 3.01v.96h1.96c.74 0 1.35.61 1.35 1.35v3.42c0 .74-.61 1.35-1.35 1.35h-1.96v.96c0 1.66-1.35 3.01-3.01 3.01H9.37c-1.66 0-3.01-1.35-3.01-3.01v-3.42c0-.74.61-1.35 1.35-1.35h1.96v-.96c0-1.15.93-2.08 2.08-2.08h4.25c.34 0 .61-.27.61-.61V8.89c0-.34-.27-.61-.61-.61H10.5c-1.66 0-3.01-1.35-3.01-3.01v-.45c0-1.66 1.35-3.01 3.01-3.01h3.75z"/></svg>
+        Python
+      </li>
+      <li>
+        <svg class="tech-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M18.15 2.5H5.85C4.01 2.5 2.5 4.01 2.5 5.85v12.3c0 1.84 1.51 3.35 3.35 3.35h12.3c1.84 0 3.35-1.51 3.35-3.35V5.85c0-1.84-1.51-3.35-3.35-3.35zm-9.4 15.65H7.2V8.9h1.55v9.25zm8.05 0h-6.2v-1.5h6.2v1.5zm0-3.5h-6.2v-1.5h6.2v1.5z"/></svg>
+        Astro
+      </li>
+      <li>
+        <svg class="tech-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm1-13h-2v6h6v-2h-4z"/></svg>
+        TypeScript
+      </li>
+      <li>
+        <svg class="tech-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm1-8H11V7h2v2z"/></svg>
+        React.js
+      </li>
+      <li>
+        <svg class="tech-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        Tailwind CSS
+      </li>
+      <li>
+        <svg class="tech-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
+        MySQL & Git
+      </li>
+  </ul>
+  
+  <p class="tech-more">
+    And more in my stack — <a href="https://github.com/sakshi-db" target="_blank" rel="noopener noreferrer">explore on GitHub ↗</a>
+  </p>
+</div>
 
-    <div class="about-beyond">
-     <h3>Beyond the screen</h3>
-      <p>
-       When I'm not coding, you'll probably find me watching anime,
-       following sports, or falling down some random rabbit hole.
-      </p>
+      <div class="about-beyond">
+        <h3>Beyond the screen</h3>
+        <p>
+          When I'm not coding, you'll probably find me watching anime,
+          following sports, or falling down some random rabbit hole. ☺︎
+        </p>
+      </div>
     </div>
 
     <div class="about-photo">
-      <img src="/images/profile.jpg" alt="A photo of me" />
+      <img src="/images/profile.png" alt="A photo of me" />
     </div>
   </div>
 </section>
 
-<Projects />
+    <Projects />
 
-<section id="experiments" class="page-section">
-  <p class="section-label">03 — LITTLE SIDE QUESTS</p>
-  <h2>Experiments</h2>
+<section id="contact" class="page-section contact-section">
+  <p class="section-label">03 — SAY HELLO</p>
+  <h2>/ let's connect</h2>
+
+  <div class="contact-content">
+    <div class="contact-intro">
+      <h3>Have something in mind?</h3>
+      <h3 class="contact-highlight">Let's talk.</h3>
+
+      <p>
+        Whether it's an interesting idea, a project, a collaboration,
+        or just a good conversation about technology — my inbox is open.
+      </p>
+
+      <a href="mailto:sakshi.db@gmail.com" class="say-hi-button">
+        <span>Say hello!</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    <div class="contact-visual" aria-hidden="true">
+      <span class="contact-orbit orbit-one"></span>
+      <span class="contact-orbit orbit-two"></span>
+      <span class="contact-star">✦</span>
+      <span class="contact-dot"></span>
+    </div>
+  </div>
+
+  <a
+    href="https://www.linkedin.com/in/sakshi-db/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="linkedin-card"
+  >
+    <div class="linkedin-card-icon">in</div>
+
+    <div class="linkedin-card-text">
+      <h3>Want to know more about my journey?</h3>
+      <p>Find me on LinkedIn and follow along.</p>
+    </div>
+
+    <span class="linkedin-arrow" aria-hidden="true">↗</span>
+  </a>
+
+  <Blob />
+  
 </section>
 
-<section id="contact" class="page-section">
-  <p class="section-label">04 — SAY HELLO</p>
-  <h2>Let's connect.</h2>
-</section>
 
-    </main>
+<footer class="site-footer">
+  <div class="footer-bottom">
+    <p>© 2026 sakshidb. All rights reserved.</p>
+    <p>Made with ‪‪❤︎‬ & curiosity ✦</p>
+  </div>
+</footer>
+
+  </main>
 </Layout>

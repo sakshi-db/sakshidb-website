@@ -42,9 +42,9 @@ const projects = [
 
 <section id="projects" class="projects-section">
   <div class="projects-heading">
-    <div>
+    <div class="projects-title-wrapper">
       <p class="section-label">02 — THINGS I'VE MADE</p>
-      <h2>Software</h2>
+      <h2>/ software</h2>
     </div>
 
     <a
@@ -137,6 +137,34 @@ const projects = [
     align-items: end;
     gap: 24px;
     margin-bottom: 2.5rem;
+  }
+
+  /* Make the title wrapper a flex row so the line and heading sit together */
+  .projects-title-wrapper {
+    display: flex;
+    flex-direction: column; /* Keeps the label stacked above the h2 */
+    flex: 1;                 /* Takes up all available space between left and right */
+  }
+
+  /* Style the h2 to expand horizontally and hold the line */
+  .projects-heading h2 {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+  }
+
+  /* Automatically draw the trailing line next to 'software' */
+  .projects-heading h2::after {
+    content: "";
+    flex: 1;                  /* Expands to fill the gap before 'View all projects' */
+    height: 1px;
+    background: rgba(76, 200, 194, 0.25); /* Matches your theme accent color */
+    max-width: 400px;         /* Optional: keeps the line from getting absurdly long on huge screens */
   }
 
   .section-label {

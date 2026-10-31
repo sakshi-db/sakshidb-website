@@ -29,7 +29,7 @@
    02. RESET
 ================================= */
 
-* {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -50,8 +50,8 @@ body {
     background: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-body);
-    font-size: 20px;
-    line-height: 1.6;
+    font-size: 16px; /* Balanced base body size */
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -101,53 +101,436 @@ img {
 
 .section-label {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--color-accent);
   letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .page-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
   font-family: var(--font-heading);
   color: var(--color-text);
-  font-size: 2.8rem;
+  font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 800;
   line-height: 1.2;
 }
 
+.page-section h2::after {
+  content: "";
+  flex: 1; /* Fills the rest of the horizontal row */
+  height: 1px;
+  background: rgba(76, 200, 194, 0.25); /* Uses your soft accent color */
+}
+
+/* ABOUT SECTION */
+
 .about-content {
   display: flex;
   align-items: center;
-  gap: 3rem;
+  justify-content: space-between;
+  gap: 4rem;
   margin-top: 2rem;
 }
 
+.about-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 650px;
+}
+
+/* Unified body font size for descriptions across pages */
+.about-text p,
+.contact-intro p,
+.project-card p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--color-muted);
+}
+
+.about-text h3 {
+  margin-bottom: 0.7rem;
+  font-size: 1.15rem;
+}
+
+/* TECH STACK GRID */
+
+.tech-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
+  row-gap: 0.6rem;
+  padding: 0;
+  margin: 0;
+}
+
+.tech-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.tech-list li::before {
+  content: "▸";
+  color: var(--color-accent);
+  font-size: 1.1em;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ORGANIC PHOTO */
+
 .about-photo {
   width: 280px;
-  height: 320px;
+  height: 280px;
   flex-shrink: 0;
-  overflow: hidden;
-  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: var(--color-accent);
+
+  box-shadow:
+    0 0 25px rgba(76, 200, 194, 0.35),
+    0 0 60px rgba(76, 200, 194, 0.2);
 }
 
 .about-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
   display: block;
 }
 
-.about-text {
+.say-hi-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+
+  margin-top: 1.8rem;
+  padding: 0.75rem 1.5rem;
+
+  color: var(--color-accent);
+  background: transparent;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 6px;
+
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.say-hi-button:hover {
+  background: rgba(76, 200, 194, 0.12);
+  box-shadow: 0 0 18px rgba(76, 200, 194, 0.2);
+  transform: translateY(-3px);
+}
+
+.say-hi-button svg {
+  flex-shrink: 0;
+}
+
+.navbar a {
+  color: var(--color-accent);
+  transition: color var(--transition-smooth);
+}
+
+.navbar a:hover,
+.navbar a:focus-visible {
+  color: var(--color-accent);
+}
+
+
+/* CONTACT SECTION */
+
+.contact-section {
+  padding-bottom: 3rem;
+}
+
+.contact-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  margin-top: 2.5rem;
+}
+
+.contact-intro {
+  max-width: 600px;
+}
+
+.contact-intro h3 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+}
+
+.contact-highlight {
+  color: var(--color-accent);
+}
+
+/* DECORATIVE VISUAL */
+
+.contact-visual {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+
+.contact-orbit {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(76, 200, 194, 0.5);
+  border-radius: 50%;
+}
+
+.orbit-one {
+  transform: rotate(-30deg) scaleX(0.65);
+}
+
+.orbit-two {
+  transform: rotate(50deg) scaleX(0.65);
+}
+
+.contact-star {
+  color: var(--color-accent);
+  font-size: 3.5rem;
+}
+
+.contact-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--color-detail);
+  border-radius: 50%;
+  top: 30px;
+  right: 40px;
+}
+
+/* LINKEDIN CARD */
+
+.linkedin-card {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 3rem;
+  padding: 1.4rem 1.8rem;
+  background: var(--color-surface);
+  border: 1px solid rgba(76, 200, 194, 0.18);
+  border-radius: 14px;
+  transition: transform var(--transition-smooth),
+              border-color var(--transition-smooth);
+}
+
+.linkedin-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-accent);
+}
+
+.linkedin-card-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: 800;
+  font-size: 1.3rem;
+}
+
+.linkedin-card-text {
   flex: 1;
 }
+
+.linkedin-card-text h3 {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.linkedin-card-text p {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.linkedin-arrow {
+  color: var(--color-accent);
+  font-size: 1.5rem;
+}
+
+/* FOOTER */
+
+.site-footer {
+  width: min(100% - 80px, 1160px);
+  margin: 5rem auto 0; /* Creates the healthy spacing gap */
+  padding: 2rem 0;
+  border-top: none; /* Fully eliminates the unwanted line */
+}
+
+.footer-logo {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.footer-socials a {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  transition: color var(--transition-smooth);
+}
+
+.footer-socials a:hover {
+  color: var(--color-accent);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+/* MOBILE */
 
 @media (max-width: 700px) {
   .about-content {
     flex-direction: column;
     align-items: flex-start;
+    gap: 2.5rem;
   }
 
   .about-photo {
     width: 220px;
-    height: 250px;
+    height: 220px;
+  }
+
+  .contact-content {
+    gap: 1rem;
+  }
+
+  .contact-intro h3 {
+    font-size: 1.5rem;
+  }
+
+  .contact-visual {
+    width: 110px;
+    height: 150px;
+  }
+
+  .contact-orbit {
+    width: 100px;
+    height: 100px;
+  }
+
+  .contact-star {
+    font-size: 2.5rem;
+  }
+
+  .linkedin-card {
+    padding: 1.1rem;
+    gap: 0.8rem;
+  }
+
+  .site-footer {
+    width: calc(100% - 40px);
+    margin-top: 4rem;
+    border-top: none;
+  }
+
+  .footer-bottom {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}      
+
+/* TECH STACK GRID WITH ICONS */
+  .tech-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    row-gap: 0.8rem;
+    padding: 0;
+    margin: 1rem 0 0 0;
+  }
+
+  .tech-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--color-text);
+  }
+
+  /* Style the custom tech icons */
+  .tech-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--color-accent); /* Colors them in your glowing teal accent! */
+    flex-shrink: 0;
+  }
+
+  /* "More on GitHub" prompt below the list */
+  .tech-more {
+    margin-top: 1.2rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+
+  .tech-more a {
+    color: var(--color-accent);
+    font-weight: 600;
+    transition: opacity var(--transition-smooth);
+  }
+
+  .tech-more a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+
+  /* BLINKING TERMINAL CURSOR */
+.blinking-cursor {
+  display: inline-block;
+  width: 4px;                  /* Thickness of the cursor bar */
+  height: 0.85em;              /* Matches the height of your text line */
+  background-color: var(--color-muted); /* Glowing teal matching your theme */
+  margin-left: 4px;            /* Slight spacing away from the period or name */
+  vertical-align: baseline;    
+  animation: blink 1s step-end infinite;
+}
+
+/* Keyframes for the smooth blinking effect */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }

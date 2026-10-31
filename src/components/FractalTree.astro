@@ -1,0 +1,71 @@
+
+<div id="fractal-tree"></div>
+
+<script>
+  import p5 from 'p5';
+
+  let angle;
+
+  const Sketch = (p) => {
+    p.setup = () => {
+      p.createCanvas(400, 400);
+      p.clear();
+      angle = p.PI / 4;
+      p.stroke(255);
+      p.strokeWeight(1.5);
+    };
+
+    p.draw = () => {
+      p.clear();
+      p.translate(200, p.height);
+
+      angle = p.map(
+        p.sin(p.frameCount * 0.01),
+        -1,
+        1,
+        p.PI / 2,
+        p.PI / 16
+      );
+
+      branch(100);
+    };
+
+    function branch(len) {
+      p.line(0, 0, 0, -len);
+      p.translate(0, -len);
+
+      if (len > 4) {
+        p.push();
+        p.rotate(angle);
+        branch(len * 0.67);
+        p.pop();
+
+        p.push();
+        p.rotate(-angle);
+        branch(len * 0.67);
+        p.pop();
+      }
+    }
+  };
+
+  const container = document.getElementById('fractal-tree');
+
+  if (container) {
+    new p5(Sketch, container);
+  }
+</script>
+
+<style>
+  #fractal-tree {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+  }
+
+  #fractal-tree canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

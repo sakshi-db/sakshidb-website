@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Explorer from '../components/Explorer.astro';
 
 const { title = 'Sakshi Bhosale' } = Astro.props;
 ---
@@ -27,6 +28,7 @@ const { title = 'Sakshi Bhosale' } = Astro.props;
 
     <body>
         <slot />
+        <Explorer />
     </body>
 </html>
 
