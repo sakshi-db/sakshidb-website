@@ -71,7 +71,7 @@
         </label>
 
         <button type="submit" class="feedback-submit">
-          Send note <span aria-hidden="true">↗</span>
+            Send note <span aria-hidden="true">↗</span>
         </button>
 
         <p class="feedback-status" id="feedback-status" aria-live="polite"></p>
@@ -157,8 +157,15 @@
 
         if (!selectedRating) {
             if (ratingHint) {
-                ratingHint.textContent = "Please choose a rating first.";
+                ratingHint.textContent =
+                    "Please select a rating before sending your note.";
             }
+
+            ratingContainer?.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+
             return;
         }
 
