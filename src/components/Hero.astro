@@ -1,0 +1,182 @@
+---
+import FractalTree from "./FractalTree.astro";
+---
+
+<section class="intro-section" id="home">
+  <div class="scene">
+    <FractalTree />
+  </div>
+
+  <div class="intro">
+    <p class="eyebrow">A LITTLE INTRODUCTION</p>
+
+    <h1>
+      hey, i'm <span class="typed-name"></span><span
+        class="blinking-cursor"
+        aria-hidden="true"></span>
+    </h1>
+
+    <p class="intro-copy">
+      I'm learning my way through the world of software, figuring things out by
+      building, breaking, fixing, and trying again. I enjoy exploring different
+      corners of technology, experimenting with ideas, and occasionally getting
+      lost in interesting rabbit holes along the way. There's always something
+      new to learn, make, or get curious about.
+    </p>
+
+    <div class="intro-buttons">
+      <a href="#projects" class="say-hi-button reveal">
+        <span>↓ View projects</span>
+      </a>
+
+      <a href="#contact" class="say-hi-button secondary-button reveal">
+        <span>✦ Say hi!</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const nameElement = document.querySelector(".typed-name");
+  const name = "sakshi";
+
+  if (nameElement) {
+    let index = 0;
+
+    const typeName = () => {
+      if (index < name.length) {
+        nameElement.textContent += name[index];
+        index++;
+        setTimeout(typeName, 120);
+      }
+    };
+
+    setTimeout(typeName, 500);
+  }
+</script>
+
+<style>
+  .intro-section {
+    max-width: var(--page-width);
+    min-height: 76vh;
+    margin: 0 auto;
+    padding: 4rem var(--page-padding);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+    overflow: hidden;
+  }
+
+  .scene {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .intro {
+    max-width: 540px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+
+  h1 {
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    font-size: clamp(2.6rem, 4.5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    margin: 1.1rem 0;
+  }
+
+  h1 span {
+    color: var(--color-accent);
+  }
+
+  .intro-copy {
+    color: var(--color-muted);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  @media (max-width: 768px) {
+    .intro-section {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding-top: 3rem;
+      gap: 1.5rem;
+    }
+
+    .scene {
+      order: 1;
+    }
+
+    .intro {
+      order: 2;
+      max-width: 100%;
+    }
+  }
+
+  /* SCROLL REVEAL */
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 650ms ease,
+      transform 650ms cubic-bezier(0.2, 0.65, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .typed-name {
+    color: var(--color-accent);
+  }
+
+  .intro-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .intro-buttons a:first-child {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+  }
+
+  .intro-buttons a:first-child:hover {
+    background: #65d8d1;
+    border-color: #65d8d1;
+    box-shadow: 0 0 18px rgba(76, 200, 194, 0.25);
+  }
+
+  .intro-buttons .say-hi-button {
+    margin-top: 1.8rem;
+  }
+
+  .secondary-button {
+    background: transparent;
+  }
+</style>

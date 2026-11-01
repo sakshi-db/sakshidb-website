@@ -1,0 +1,444 @@
+<section class="feedback-section" id="guestbook">
+    <p class="section-label">04 — A LITTLE SOMETHING</p>
+
+    <div class="feedback-heading">
+        <img
+            src="/images/blob.png"
+            alt="the site keeper"
+            class="feedback-blob"
+        />
+
+        <div>
+            <h2>/ visitor's log</h2>
+            <p class="feedback-intro reveal">
+                Leaving so soon? Drop a note or a star to let me know you were
+                here.
+            </p>
+        </div>
+    </div>
+
+    <form class="feedback-form reveal" id="feedback-form">
+        <div class="form-group">
+            <label
+                >So, what did you think of this little corner of the internet?</label
+            >
+
+            <div class="rating-stars" role="group" aria-label="Rate your visit">
+                {
+                    Array.from({ length: 5 }, (_, i) => (
+                        <button
+                            type="button"
+                            class="rating-star"
+                            data-rating={i + 1}
+                            aria-label={`Rate ${i + 1} out of 5`}
+                            aria-pressed="false"
+                        >
+                            ★
+                        </button>
+                    ))
+                }
+            </div>
+
+            <p class="rating-hint" id="rating-hint">Pick a rating</p>
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-message">Leave a little note</label>
+            <textarea
+                id="feedback-message"
+                name="message"
+                placeholder="Anything you'd like to say - A thought, a suggestion, or just a hello..."
+                maxlength="500"
+                required></textarea>
+            <span class="character-count" id="character-count"> 0 / 500 </span>
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-name">Your name</label>
+            <input
+                type="text"
+                id="feedback-name"
+                name="author_name"
+                placeholder="What's your name?"
+                maxlength="80"
+            />
+        </div>
+
+        <label class="anonymous-option">
+            <input type="checkbox" id="anonymous-checkbox" />
+            <span class="custom-checkbox"></span>
+            Post anonymously
+        </label>
+
+        <button type="submit" class="feedback-submit">
+            Leave a little note <span aria-hidden="true">↗</span>
+        </button>
+
+        <p class="feedback-status" id="feedback-status" aria-live="polite"></p>
+    </form>
+</section>
+
+<script>
+    const form = document.querySelector<HTMLFormElement>("#feedback-form");
+    const stars = document.querySelectorAll<HTMLButtonElement>(".rating-star");
+    const ratingHint = document.querySelector("#rating-hint");
+    const message =
+        document.querySelector<HTMLTextAreaElement>("#feedback-message");
+    const characterCount = document.querySelector("#character-count");
+    const nameInput =
+        document.querySelector<HTMLInputElement>("#feedback-name");
+    const anonymousCheckbox = document.querySelector<HTMLInputElement>(
+        "#anonymous-checkbox",
+    );
+
+    const submitButton =
+        document.querySelector<HTMLButtonElement>(".feedback-submit");
+    let selectedRating = 0;
+
+    const ratingLabels = [
+        "Not great",
+        "Could be better",
+        "It was okay",
+        "Really nice!",
+        "Loved it!",
+    ];
+
+    function updateStars(rating: number) {
+        stars.forEach((star) => {
+            const value = Number(star.dataset.rating);
+            const active = value <= rating;
+
+            star.classList.toggle("active", active);
+            star.setAttribute("aria-pressed", String(value === selectedRating));
+        });
+    }
+
+    stars.forEach((star) => {
+        star.addEventListener("mouseenter", () => {
+            updateStars(Number(star.dataset.rating));
+        });
+
+        star.addEventListener("click", () => {
+            selectedRating = Number(star.dataset.rating);
+            updateStars(selectedRating);
+
+            if (ratingHint) {
+                ratingHint.textContent = ratingLabels[selectedRating - 1];
+            }
+        });
+    });
+
+    const ratingContainer = document.querySelector(".rating-stars");
+
+    ratingContainer?.addEventListener("mouseleave", () => {
+        updateStars(selectedRating);
+    });
+
+    message?.addEventListener("input", () => {
+        if (characterCount && message) {
+            characterCount.textContent = `${message.value.length} / 500`;
+        }
+    });
+
+    anonymousCheckbox?.addEventListener("change", () => {
+        if (nameInput && anonymousCheckbox) {
+            nameInput.disabled = anonymousCheckbox.checked;
+            nameInput.value = anonymousCheckbox.checked ? "" : nameInput.value;
+            nameInput.placeholder = anonymousCheckbox.checked
+                ? "Posting anonymously"
+                : "What's your name?";
+        }
+    });
+
+    form?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const status = document.querySelector("#feedback-status");
+
+        if (!selectedRating) {
+            if (ratingHint) {
+                ratingHint.textContent = "Please choose a rating first.";
+            }
+            return;
+        }
+
+        const authorName = anonymousCheckbox?.checked
+            ? "Anonymous"
+            : nameInput?.value.trim() || "";
+
+        if (!anonymousCheckbox?.checked && !authorName) {
+            if (status) {
+                status.textContent =
+                    "Please enter your name or choose anonymous.";
+            }
+            nameInput?.focus();
+            return;
+        }
+
+        const feedbackData = {
+            rating: selectedRating,
+            message: message?.value.trim(),
+            author_name: authorName,
+            is_anonymous: anonymousCheckbox?.checked ?? false,
+        };
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
+        }
+
+        if (status) {
+            status.textContent = "Sending your little note...";
+        }
+
+        try {
+            const response = await fetch("/api/feedback", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(feedbackData),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || "Something went wrong.");
+            }
+
+            if (status) {
+                status.textContent =
+                    "Your note has been delivered! Thanks for stopping by ♡";
+            }
+
+            // Reset the form after successful submission.
+            form.reset();
+
+            selectedRating = 0;
+            updateStars(0);
+
+            if (ratingHint) {
+                ratingHint.textContent = "Pick a rating";
+            }
+
+            if (characterCount) {
+                characterCount.textContent = "0 / 500";
+            }
+
+            if (nameInput) {
+                nameInput.disabled = false;
+                nameInput.placeholder = "What's your name?";
+            }
+        } catch (error) {
+            if (status) {
+                status.textContent =
+                    error instanceof Error
+                        ? error.message
+                        : "Couldn't send your note. Please try again.";
+            }
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.innerHTML =
+                    'Leave a little note <span aria-hidden="true">↗</span>';
+            }
+        }
+    });
+</script>
+
+<style>
+    .feedback-section {
+        width: min(100%, 900px);
+        margin: 100px auto;
+    }
+
+    .feedback-heading {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin: 2rem 0 2.5rem;
+    }
+
+    .feedback-blob {
+        width: 95px;
+        height: 95px;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
+
+    .feedback-heading h2 {
+        margin: 0 0 0.75rem;
+    }
+
+    .feedback-intro {
+        color: var(--color-muted);
+        line-height: 1.7;
+    }
+
+    .feedback-form {
+        background: var(--color-surface);
+        padding: 2rem;
+        border: 1px solid rgba(76, 200, 194, 0.12);
+        border-radius: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.7rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        position: relative;
+    }
+
+    .form-group label {
+        color: var(--color-text);
+        font-weight: 800;
+    }
+
+    .rating-stars {
+        display: flex;
+        gap: 0.55rem;
+    }
+
+    .rating-star {
+        background: none;
+        border: none;
+        padding: 0;
+        font-size: 2rem;
+        color: var(--color-muted);
+        cursor: pointer;
+        transition:
+            color 180ms ease,
+            transform 180ms ease;
+    }
+
+    .rating-star.active {
+        color: var(--color-accent);
+    }
+
+    .rating-star:hover {
+        transform: translateY(-3px);
+    }
+
+    .rating-star:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 4px;
+    }
+
+    .rating-hint,
+    .character-count {
+        font-size: 0.8rem;
+        color: var(--color-muted);
+    }
+
+    .form-group textarea,
+    .form-group input {
+        width: 100%;
+        background: var(--color-bg);
+        border: 1px solid rgba(181, 192, 212, 0.2);
+        border-radius: 7px;
+        padding: 0.9rem 1rem;
+        color: var(--color-text);
+        font: inherit;
+        outline: none;
+        transition: border-color 200ms ease;
+    }
+
+    .form-group textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .form-group textarea:focus,
+    .form-group input:focus {
+        border-color: var(--color-accent);
+    }
+
+    .form-group input:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .form-group textarea::placeholder,
+    .form-group input::placeholder {
+        color: var(--color-muted);
+        opacity: 0.65;
+    }
+
+    .character-count {
+        align-self: flex-end;
+    }
+
+    .anonymous-option {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        color: var(--color-muted);
+        font-size: 0.9rem;
+        cursor: pointer;
+        width: fit-content;
+    }
+
+    .anonymous-option input {
+        accent-color: var(--color-accent);
+        width: 16px;
+        height: 16px;
+    }
+
+    .feedback-submit {
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+        padding: 0.8rem 1.4rem;
+        background: var(--color-accent);
+        color: var(--color-bg);
+        border: none;
+        border-radius: 6px;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+        transition:
+            transform 200ms ease,
+            box-shadow 200ms ease;
+    }
+
+    .feedback-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 18px rgba(76, 200, 194, 0.2);
+    }
+
+    .feedback-status {
+        color: var(--color-muted);
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+        .feedback-section {
+            margin: 70px auto;
+        }
+
+        .feedback-heading {
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .feedback-blob {
+            width: 70px;
+            height: 70px;
+        }
+
+        .feedback-form {
+            padding: 1.25rem;
+        }
+    }
+
+    .feedback-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+</style>

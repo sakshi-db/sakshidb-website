@@ -1,0 +1,140 @@
+<button
+    class="floating-blob"
+    id="floating-blob"
+    type="button"
+    aria-label="Jump to the feedback section"
+    aria-controls="guestbook"
+>
+    <span class="blob-tooltip">Leave some feedback?</span>
+    <img src="/images/blob.png" alt="" />
+</button>
+
+<script>
+    const floatingBlob =
+        document.querySelector<HTMLButtonElement>("#floating-blob");
+    const guestbook = document.querySelector("#guestbook");
+
+    floatingBlob?.addEventListener("click", () => {
+        guestbook?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    });
+
+    if (floatingBlob && guestbook && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                floatingBlob.classList.toggle("hidden", entry.isIntersecting);
+            },
+            { threshold: 0.15 },
+        );
+
+        observer.observe(guestbook);
+    }
+</script>
+
+<style>
+    .floating-blob {
+        position: fixed;
+        right: 28px;
+        bottom: 24px;
+        z-index: 200;
+        width: 76px;
+        height: 76px;
+        padding: 8px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        transition:
+            opacity 250ms ease,
+            transform 250ms ease;
+        animation: blob-float 3s ease-in-out infinite;
+    }
+
+    .floating-blob img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 0 10px rgba(76, 200, 194, 0.35));
+        image-rendering: pixelated;
+    }
+
+    .floating-blob:hover {
+        transform: scale(1.12);
+    }
+
+    .blob-tooltip {
+        position: absolute;
+        right: 75px;
+        top: 50%;
+        transform: translateY(-50%) translateX(6px);
+        white-space: nowrap;
+        background: var(--color-surface);
+        color: var(--color-text);
+        border: 1px solid rgba(76, 200, 194, 0.35);
+        border-radius: 7px;
+        padding: 9px 13px;
+        font-family: var(--font-heading);
+        font-size: 0.82rem;
+        font-weight: 700;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+            opacity 200ms ease,
+            transform 200ms ease;
+    }
+
+    .floating-blob:hover .blob-tooltip,
+    .floating-blob:focus-visible .blob-tooltip {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+
+    .floating-blob.hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(15px);
+    }
+
+    .floating-blob:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 3px;
+        border-radius: 50%;
+    }
+
+    @keyframes blob-float {
+        0%,
+        100% {
+            translate: 0 0;
+        }
+        50% {
+            translate: 0 -7px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .floating-blob {
+            width: 64px;
+            height: 64px;
+            right: 14px;
+            bottom: 14px;
+        }
+
+        /* Keep the invitation visible on touch screens. */
+        .blob-tooltip {
+            opacity: 1;
+            transform: translateY(-50%);
+            right: 62px;
+            font-size: 0.72rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .floating-blob {
+            animation: none;
+            transition: none;
+        }
+    }
+</style>

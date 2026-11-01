@@ -1,4 +1,3 @@
-
 ---
 const projects = [
   {
@@ -11,7 +10,7 @@ const projects = [
     github: "https://github.com/sakshi-db/solace-sanctuary",
     live: "https://solacesanctuary.vercel.app/",
     visual: "solace",
-    visualLabel: "a little space to breathe."
+    visualLabel: "a little space to breathe.",
   },
   {
     number: "02",
@@ -23,7 +22,7 @@ const projects = [
     github: "https://github.com/sakshi-db/the-legacy-ledger",
     live: "https://the-legacy-ledger.vercel.app/",
     visual: "legacy",
-    visualLabel: "stories worth keeping."
+    visualLabel: "stories worth keeping.",
   },
   {
     number: "03",
@@ -35,13 +34,13 @@ const projects = [
     github: "https://github.com/sakshi-db/RxGuard-AI",
     live: "https://rxguard-ai.vercel.app/",
     visual: "rxguard",
-    visualLabel: "medication safety, at a glance."
-  }
+    visualLabel: "medication safety, at a glance.",
+  },
 ];
 ---
 
 <section id="projects" class="projects-section">
-  <div class="projects-heading">
+  <div class="projects-heading reveal">
     <div class="projects-title-wrapper">
       <p class="section-label">02 — THINGS I'VE MADE</p>
       <h2>/ software</h2>
@@ -59,68 +58,69 @@ const projects = [
   </div>
 
   <div class="project-grid">
-    {projects.map((project) => (
-      <article class="project-card">
-        <div class={`project-visual ${project.visual}`}>
-          <span class="visual-number">{project.number}</span>
-          <span class="visual-name">{project.name}</span>
-          <span class="visual-message">{project.visualLabel}</span>
-          <span class="visual-decoration" aria-hidden="true"></span>
-        </div>
+    {
+      projects.map((project) => (
+        <article class="project-card reveal">
+          <div class={`project-visual ${project.visual}`}>
+            <span class="visual-number">{project.number}</span>
+            <span class="visual-name">{project.name}</span>
+            <span class="visual-message">{project.visualLabel}</span>
+            <span class="visual-decoration" aria-hidden="true" />
+          </div>
 
-        <div class="project-content">
-          <p class="project-category">{project.category}</p>
+          <div class="project-content">
+            <p class="project-category">{project.category}</p>
 
-          <div class="project-title-row">
-            <h3>{project.name}</h3>
+            <div class="project-title-row">
+              <h3>{project.name}</h3>
 
-            <div class="project-links">
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`View ${project.name} source code on GitHub`}
-                title="GitHub repository"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 .297a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.4-1.33-1.77-1.33-1.77-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.62-2.8 5.64-5.48 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .297z"/>
-                </svg>
-              </a>
-
-              {project.live && (
+              <div class="project-links">
                 <a
-                  href={project.live}
+                  href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Visit ${project.name} website`}
-                  title="Live website"
+                  aria-label={`View ${project.name} source code on GitHub`}
+                  title="GitHub repository"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M14 3h7v7" />
-                    <path d="M10 14 21 3" />
-                    <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+                    <path d="M12 .297a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.23c-3.34.73-4.04-1.42-4.04-1.42-.55-1.4-1.33-1.77-1.33-1.77-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.62-2.8 5.64-5.48 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .297z" />
                   </svg>
                 </a>
-              )}
+
+                {project.live && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visit ${project.name} website`}
+                    title="Live website"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M14 3h7v7" />
+                      <path d="M10 14 21 3" />
+                      <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </div>
+
+            <p class="project-description">{project.description}</p>
+
+            <div class="project-stack">
+              {project.stack.map((tech) => (
+                <span>{tech}</span>
+              ))}
             </div>
           </div>
-
-          <p class="project-description">{project.description}</p>
-
-          <div class="project-stack">
-            {project.stack.map((tech) => (
-              <span>{tech}</span>
-            ))}
-          </div>
-        </div>
-      </article>
-    ))}
+        </article>
+      ))
+    }
   </div>
 
-  <p class="more-projects">
-  More projects are taking shape. <span>Stay tuned.</span>
-</p>
-
+  <p class="more-projects reveal">
+    More projects are taking shape. <span>Stay tuned.</span>
+  </p>
 </section>
 
 <style>
@@ -143,7 +143,7 @@ const projects = [
   .projects-title-wrapper {
     display: flex;
     flex-direction: column; /* Keeps the label stacked above the h2 */
-    flex: 1;                 /* Takes up all available space between left and right */
+    flex: 1; /* Takes up all available space between left and right */
   }
 
   /* Style the h2 to expand horizontally and hold the line */
@@ -161,10 +161,10 @@ const projects = [
   /* Automatically draw the trailing line next to 'software' */
   .projects-heading h2::after {
     content: "";
-    flex: 1;                  /* Expands to fill the gap before 'View all projects' */
+    flex: 1; /* Expands to fill the gap before 'View all projects' */
     height: 1px;
     background: rgba(76, 200, 194, 0.25); /* Matches your theme accent color */
-    max-width: 400px;         /* Optional: keeps the line from getting absurdly long on huge screens */
+    max-width: 400px; /* Optional: keeps the line from getting absurdly long on huge screens */
   }
 
   .section-label {
@@ -210,8 +210,9 @@ const projects = [
     border-radius: 14px;
     background: var(--color-surface);
     border: 1px solid rgba(243, 243, 240, 0.07);
-    transition: transform var(--transition-smooth),
-                border-color var(--transition-smooth);
+    transition:
+      transform var(--transition-smooth),
+      border-color var(--transition-smooth);
   }
 
   .project-card:hover {
@@ -333,8 +334,9 @@ const projects = [
     width: 30px;
     height: 30px;
     color: var(--color-muted);
-    transition: color var(--transition-smooth),
-                transform var(--transition-smooth);
+    transition:
+      color var(--transition-smooth),
+      transform var(--transition-smooth);
   }
 
   .project-links a:hover {
@@ -381,51 +383,50 @@ const projects = [
   }
 
   @media (max-width: 900px) {
-  .project-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 600px) {
-  .project-grid {
-    grid-template-columns: 1fr;
+    .project-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
-  .projects-heading {
-    align-items: center;
+  @media (max-width: 600px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .projects-heading {
+      align-items: center;
+    }
+
+    .project-description {
+      min-height: 0;
+    }
   }
 
-  .project-description {
-    min-height: 0;
+  @media (max-width: 450px) {
+    .projects-heading {
+      align-items: start;
+      flex-direction: column;
+    }
   }
-}
 
-@media (max-width: 450px) {
-  .projects-heading {
-    align-items: start;
-    flex-direction: column;
+  .more-projects {
+    margin-top: 2.5rem;
+    text-align: center;
+    color: var(--color-muted);
+    font-size: 0.9rem;
   }
-}
 
-.more-projects {
-  margin-top: 2.5rem;
-  text-align: center;
-  color: var(--color-muted);
-  font-size: 0.9rem;
-}
+  .more-projects span {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
 
-.more-projects span {
-  color: var(--color-accent);
-  font-weight: 700;
-}
+  .project-title-row h3 {
+    font-size: 1.05rem;
+    letter-spacing: -0.04em;
+  }
 
-.project-title-row h3 {
-  font-size: 1.05rem;
-  letter-spacing: -0.04em;
-}
-
-.legacy + .project-content .project-title-row h3 {
-  font-size: 0.95rem;
-}
-
+  .legacy + .project-content .project-title-row h3 {
+    font-size: 0.95rem;
+  }
 </style>

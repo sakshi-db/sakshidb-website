@@ -1,8 +1,7 @@
-
 <div id="fractal-tree"></div>
 
 <script>
-  import p5 from 'p5';
+  import p5 from "p5";
 
   let angle;
 
@@ -19,13 +18,7 @@
       p.clear();
       p.translate(200, p.height);
 
-      angle = p.map(
-        p.sin(p.frameCount * 0.01),
-        -1,
-        1,
-        p.PI / 2,
-        p.PI / 16
-      );
+      angle = p.map(p.sin(p.frameCount * 0.01), -1, 1, p.PI / 2, p.PI / 16);
 
       branch(100);
     };
@@ -48,7 +41,7 @@
     }
   };
 
-  const container = document.getElementById('fractal-tree');
+  const container = document.getElementById("fractal-tree");
 
   if (container) {
     new p5(Sketch, container);

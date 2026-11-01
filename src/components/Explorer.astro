@@ -1,131 +1,124 @@
-
 <div class="cursor-dot" aria-hidden="true"></div>
 
 <div class="explorer-cursor" aria-hidden="true">
-  <img src="/images/explorer.png" alt="" />
+    <img src="/images/explorer.png" alt="" />
 </div>
 
 <script>
-  const dot = document.querySelector(".cursor-dot");
-  const explorer = document.querySelector(".explorer-cursor");
+    const dot = document.querySelector(".cursor-dot");
+    const explorer = document.querySelector(".explorer-cursor");
 
-  const finePointer = window.matchMedia(
-    "(hover: hover) and (pointer: fine)"
-  );
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  );
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  if (dot && explorer && finePointer.matches && !reducedMotion.matches) {
-    let targetX = 0;
-    let targetY = 0;
-    let currentX = 0;
-    let currentY = 0;
-    let previousX = 0;
-    let facing = 1;
-    let visible = false;
+    if (dot && explorer && finePointer.matches && !reducedMotion.matches) {
+        let targetX = 0;
+        let targetY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let previousX = 0;
+        let facing = 1;
+        let visible = false;
 
-    window.addEventListener("pointermove", (event) => {
-      if (event.pointerType !== "mouse") return;
+        window.addEventListener("pointermove", (event) => {
+            if (event.pointerType !== "mouse") return;
 
-      targetX = event.clientX;
-      targetY = event.clientY;
+            targetX = event.clientX;
+            targetY = event.clientY;
 
-      dot.style.transform =
-        `translate3d(${targetX}px, ${targetY}px, 0)`;
+            dot.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
 
-      if (!visible) {
-        currentX = targetX + 18;
-        currentY = targetY + 18;
-        visible = true;
-      }
+            if (!visible) {
+                currentX = targetX + 18;
+                currentY = targetY + 18;
+                visible = true;
+            }
 
-      dot.classList.add("is-visible");
-      explorer.classList.add("is-visible");
-    });
+            dot.classList.add("is-visible");
+            explorer.classList.add("is-visible");
+        });
 
-    window.addEventListener("pointerleave", () => {
-      dot.classList.remove("is-visible");
-      explorer.classList.remove("is-visible");
-      visible = false;
-    });
+        window.addEventListener("pointerleave", () => {
+            dot.classList.remove("is-visible");
+            explorer.classList.remove("is-visible");
+            visible = false;
+        });
 
-    function animate() {
-      if (visible) {
-        const nextX = targetX + 18;
-        const nextY = targetY + 18;
+        function animate() {
+            if (visible) {
+                const nextX = targetX + 18;
+                const nextY = targetY + 18;
 
-        currentX += (nextX - currentX) * 0.1;
-        currentY += (nextY - currentY) * 0.1;
+                currentX += (nextX - currentX) * 0.1;
+                currentY += (nextY - currentY) * 0.1;
 
-        if (Math.abs(currentX - previousX) > 0.4) {
-          facing = currentX > previousX ? 1 : -1;
+                if (Math.abs(currentX - previousX) > 0.4) {
+                    facing = currentX > previousX ? 1 : -1;
+                }
+
+                explorer.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) scaleX(${facing})`;
+
+                previousX = currentX;
+            }
+
+            requestAnimationFrame(animate);
         }
 
-        explorer.style.transform =
-          `translate3d(${currentX}px, ${currentY}px, 0) scaleX(${facing})`;
-
-        previousX = currentX;
-      }
-
-      requestAnimationFrame(animate);
+        document.documentElement.classList.add("custom-cursor-active");
+        animate();
     }
-
-    document.documentElement.classList.add("custom-cursor-active");
-    animate();
-  }
 </script>
 
 <style>
-  .cursor-dot,
-  .explorer-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    opacity: 0;
-    z-index: 9999;
-    will-change: transform;
-  }
-
-  .cursor-dot {
-    width: 5px;
-    height: 5px;
-    background: #ffffff;
-    border-radius: 1px;
-    margin: -2px 0 0 -2px;
-  }
-
-  .explorer-cursor img {
-    display: block;
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-    image-rendering: pixelated;
-    filter: drop-shadow(0 0 4px rgba(76, 200, 194, 0.2));
-  }
-
-  .cursor-dot.is-visible,
-  .explorer-cursor.is-visible {
-    opacity: 1;
-  }
-
-  html.custom-cursor-active,
-  html.custom-cursor-active body,
-  html.custom-cursor-active body * {
-    cursor: none !important;
-  }
-
-  html.custom-cursor-active input,
-  html.custom-cursor-active textarea,
-  html.custom-cursor-active [contenteditable="true"] {
-    cursor: text !important;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
     .cursor-dot,
     .explorer-cursor {
-      display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        opacity: 0;
+        z-index: 9999;
+        will-change: transform;
     }
-  }
+
+    .cursor-dot {
+        width: 5px;
+        height: 5px;
+        background: #ffffff;
+        border-radius: 1px;
+        margin: -2px 0 0 -2px;
+    }
+
+    .explorer-cursor img {
+        display: block;
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        filter: drop-shadow(0 0 4px rgba(76, 200, 194, 0.2));
+    }
+
+    .cursor-dot.is-visible,
+    .explorer-cursor.is-visible {
+        opacity: 1;
+    }
+
+    html.custom-cursor-active,
+    html.custom-cursor-active body,
+    html.custom-cursor-active body * {
+        cursor: none !important;
+    }
+
+    html.custom-cursor-active input,
+    html.custom-cursor-active textarea,
+    html.custom-cursor-active [contenteditable="true"] {
+        cursor: text !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .cursor-dot,
+        .explorer-cursor {
+            display: none;
+        }
+    }
 </style>

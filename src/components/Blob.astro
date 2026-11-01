@@ -1,397 +1,389 @@
-
 <div class="blob-stage" aria-hidden="true">
     <div class="blob-character">
-    <img
-      src="/images/blob/idle/idle-02.png"
-      alt=""
-      draggable="false"
-    />
-  </div>
+        <img src="/images/blob/idle/idle-02.png" alt="" draggable="false" />
+    </div>
 
-  <div class="blob-greeting">
-    Good to see ya!
-    <br>
-    Thanks for stopping by.
-  </div>
+    <div class="blob-greeting">
+        Good to see ya!
+        <br />
+        Thanks for stopping by.
+    </div>
 
-  <div class="blob-ground"></div>
+    <div class="blob-ground"></div>
 
-  <div class="blob-caption">
-    <span class="blob-footsteps" aria-hidden="true">
-      <i></i><i></i><i></i><i></i>
-    </span>
+    <div class="blob-caption">
+        <span class="blob-footsteps" aria-hidden="true">
+            <i></i><i></i><i></i><i></i>
+        </span>
 
-    <span class="blob-subcaption">
-    ghost in the shell, keeping you company ✦
-  </span>
+        <span class="blob-subcaption">
+            ghost in the shell, keeping you company ✦
+        </span>
 
-  <div class="blob-note">
-    <strong>the site keeper 👻</strong>
-  </div>
-  </div>
+        <div class="blob-note">
+            <strong>the site keeper 👻</strong>
+        </div>
+    </div>
 </div>
 
 <script>
- 
-const stage = document.querySelector(".blob-stage");
-const character = stage?.querySelector(".blob-character");
-const sprite = character?.querySelector("img");
+    const stage = document.querySelector(".blob-stage");
+    const character = stage?.querySelector(".blob-character");
+    const sprite = character?.querySelector("img");
 
-if (stage && character && sprite) {
-  const walkFrames = [
-    "/images/blob/walk/walk-01.png",
-    "/images/blob/walk/walk-02.png",
-    "/images/blob/walk/walk-03.png",
-    "/images/blob/walk/walk-04.png",
-    "/images/blob/walk/walk-05.png",
-    "/images/blob/walk/walk-06.png",
-  ];
+    if (stage && character && sprite) {
+        const walkFrames = [
+            "/images/blob/walk/walk-01.png",
+            "/images/blob/walk/walk-02.png",
+            "/images/blob/walk/walk-03.png",
+            "/images/blob/walk/walk-04.png",
+            "/images/blob/walk/walk-05.png",
+            "/images/blob/walk/walk-06.png",
+        ];
 
-  const idleFrames = [
-    "/images/blob/idle/idle-02.png",
-    "/images/blob/idle/idle-03.png",
-    "/images/blob/idle/idle-04.png",
-    "/images/blob/idle/idle-05.png",
-  ];
+        const idleFrames = [
+            "/images/blob/idle/idle-02.png",
+            "/images/blob/idle/idle-03.png",
+            "/images/blob/idle/idle-04.png",
+            "/images/blob/idle/idle-05.png",
+        ];
 
-  const turnFrames = [
-    "/images/blob/turn/turn-01.png",
-    "/images/blob/turn/turn-02.png",
-    "/images/blob/turn/turn-03.png",
-  ];
+        const turnFrames = [
+            "/images/blob/turn/turn-01.png",
+            "/images/blob/turn/turn-02.png",
+            "/images/blob/turn/turn-03.png",
+        ];
 
-  const expressionFrames = [
-    "/images/blob/expressions/curious.png",
-    "/images/blob/expressions/confused.png",
-    "/images/blob/expressions/sleepy.png",
-    "/images/blob/expressions/happy.png",
-    "/images/blob/expressions/surprised.png",
-  ];
+        const expressionFrames = [
+            "/images/blob/expressions/curious.png",
+            "/images/blob/expressions/confused.png",
+            "/images/blob/expressions/sleepy.png",
+            "/images/blob/expressions/happy.png",
+            "/images/blob/expressions/surprised.png",
+        ];
 
-  const sitFrame = "/images/blob/poses/sit.png";
-  const waveFrame = "/images/blob/poses/wave.png";
+        const sitFrame = "/images/blob/poses/sit.png";
+        const waveFrame = "/images/blob/poses/wave.png";
 
-  // Preload all animation images.
-  [...walkFrames, ...idleFrames, ...turnFrames,
-    ...expressionFrames, sitFrame, waveFrame].forEach((src) => {
-    const image = new Image();
-    image.src = src;
-  });
-
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
-  if (!reducedMotion) {
-    let x = 30;
-    let direction = 1;
-    let mode = "walk";
-    let frameIndex = 0;
-    let lastFrameTime = 0;
-    let pauseUntil = 0;
-    let expressionUntil = 0;
-    let nextExpressionAt = 0;
-    let turnCount = 0;
-
-    // Greeting state
-    let greetingRequested = false;
-    let hasGreeted = false;
-    let greetingUntil = 0;
-    let previousMode = "walk";
-    let previousFrameIndex = 0;
-    let previousLastFrameTime = 0;
-    let previousSprite = "";
-
-    const speed = 0.35;
-    const frameDelay = 130;
-
-    function randomBetween(min, max) {
-      return min + Math.random() * (max - min);
-    }
-
-    function scheduleExpression(time) {
-      nextExpressionAt = time + randomBetween(7000, 12000);
-    }
-
-    function showFrame(src) {
-      sprite.src = src;
-    }
-
-    function updatePosition() {
-      character.style.left = `${x}px`;
-      character.style.transform =
-        `translateX(-50%) scaleX(${direction})`;
-    }
-
-    // Notice when the Contact section enters the screen.
-    const contactSection =
-      stage.closest("#contact") || document.querySelector("#contact");
-
-    if (contactSection) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasGreeted) {
-            greetingRequested = true;
-            hasGreeted = true;
-            observer.disconnect();
-          }
+        // Preload all animation images.
+        [
+            ...walkFrames,
+            ...idleFrames,
+            ...turnFrames,
+            ...expressionFrames,
+            sitFrame,
+            waveFrame,
+        ].forEach((src) => {
+            const image = new Image();
+            image.src = src;
         });
-      }, { threshold: 0.35 });
 
-      observer.observe(contactSection);
-    }
+        const reducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        ).matches;
 
-    function animate(time) {
-      const maxX = Math.max(30, stage.clientWidth - 30);
+        if (!reducedMotion) {
+            let x = 30;
+            let direction = 1;
+            let mode = "walk";
+            let frameIndex = 0;
+            let lastFrameTime = 0;
+            let pauseUntil = 0;
+            let expressionUntil = 0;
+            let nextExpressionAt = 0;
+            let turnCount = 0;
 
-      // Start the greeting without losing Blob's current activity.
-      if (greetingRequested && mode !== "greeting") {
-        greetingRequested = false;
+            // Greeting state
+            let greetingRequested = false;
+            let hasGreeted = false;
+            let greetingUntil = 0;
+            let previousMode = "walk";
+            let previousFrameIndex = 0;
+            let previousLastFrameTime = 0;
+            let previousSprite = "";
 
-        previousMode = mode;
-        previousFrameIndex = frameIndex;
-        previousLastFrameTime = lastFrameTime;
-        previousSprite = sprite.src;
+            const speed = 0.35;
+            const frameDelay = 130;
 
-        mode = "greeting";
-        greetingUntil = time + 2500;
-
-        showFrame(waveFrame);
-        stage.classList.add("is-greeting");
-      }
-
-      if (mode === "greeting") {
-        if (time >= greetingUntil) {
-          mode = previousMode;
-          frameIndex = previousFrameIndex;
-          lastFrameTime = time;
-
-          showFrame(previousSprite);
-          stage.classList.remove("is-greeting");
-        }
-      }
-
-      else if (mode === "walk") {
-        x += direction * speed;
-
-        if (time - lastFrameTime > frameDelay) {
-          frameIndex = (frameIndex + 1) % walkFrames.length;
-          showFrame(walkFrames[frameIndex]);
-          lastFrameTime = time;
-        }
-
-        if (time >= nextExpressionAt && x > 100 && x < maxX - 100) {
-          mode = "expression";
-
-          const expression =
-            expressionFrames[
-              Math.floor(Math.random() * expressionFrames.length)
-            ];
-
-          showFrame(expression);
-          expressionUntil = time + 1100;
-        }
-
-        else if (x >= maxX || x <= 30) {
-          x = Math.max(30, Math.min(x, maxX));
-          mode = "turn";
-          frameIndex = 0;
-          lastFrameTime = time;
-          showFrame(turnFrames[0]);
-        }
-      }
-
-      else if (mode === "expression") {
-        if (time >= expressionUntil) {
-          mode = "walk";
-          frameIndex = 0;
-          lastFrameTime = time;
-          showFrame(walkFrames[0]);
-          scheduleExpression(time);
-        }
-      }
-
-      else if (mode === "turn") {
-        if (time - lastFrameTime > 180) {
-          frameIndex++;
-
-          if (frameIndex < turnFrames.length) {
-            showFrame(turnFrames[frameIndex]);
-          } else {
-            direction *= -1;
-            turnCount++;
-            mode = "pause";
-            frameIndex = 0;
-            lastFrameTime = time;
-
-            if (turnCount % 3 === 0) {
-              mode = "sit";
-              pauseUntil = time + 3200;
-              showFrame(sitFrame);
-            } else {
-              pauseUntil = time + 1800;
-              showFrame(idleFrames[0]);
+            function randomBetween(min, max) {
+                return min + Math.random() * (max - min);
             }
-          }
 
-          lastFrameTime = time;
+            function scheduleExpression(time) {
+                nextExpressionAt = time + randomBetween(7000, 12000);
+            }
+
+            function showFrame(src) {
+                sprite.src = src;
+            }
+
+            function updatePosition() {
+                character.style.left = `${x}px`;
+                character.style.transform = `translateX(-50%) scaleX(${direction})`;
+            }
+
+            // Notice when the Contact section enters the screen.
+            const contactSection =
+                stage.closest("#contact") || document.querySelector("#contact");
+
+            if (contactSection) {
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting && !hasGreeted) {
+                                greetingRequested = true;
+                                hasGreeted = true;
+                                observer.disconnect();
+                            }
+                        });
+                    },
+                    { threshold: 0.35 },
+                );
+
+                observer.observe(contactSection);
+            }
+
+            function animate(time) {
+                const maxX = Math.max(30, stage.clientWidth - 30);
+
+                // Start the greeting without losing Blob's current activity.
+                if (greetingRequested && mode !== "greeting") {
+                    greetingRequested = false;
+
+                    previousMode = mode;
+                    previousFrameIndex = frameIndex;
+                    previousLastFrameTime = lastFrameTime;
+                    previousSprite = sprite.src;
+
+                    mode = "greeting";
+                    greetingUntil = time + 2500;
+
+                    showFrame(waveFrame);
+                    stage.classList.add("is-greeting");
+                }
+
+                if (mode === "greeting") {
+                    if (time >= greetingUntil) {
+                        mode = previousMode;
+                        frameIndex = previousFrameIndex;
+                        lastFrameTime = time;
+
+                        showFrame(previousSprite);
+                        stage.classList.remove("is-greeting");
+                    }
+                } else if (mode === "walk") {
+                    x += direction * speed;
+
+                    if (time - lastFrameTime > frameDelay) {
+                        frameIndex = (frameIndex + 1) % walkFrames.length;
+                        showFrame(walkFrames[frameIndex]);
+                        lastFrameTime = time;
+                    }
+
+                    if (time >= nextExpressionAt && x > 100 && x < maxX - 100) {
+                        mode = "expression";
+
+                        const expression =
+                            expressionFrames[
+                                Math.floor(
+                                    Math.random() * expressionFrames.length,
+                                )
+                            ];
+
+                        showFrame(expression);
+                        expressionUntil = time + 1100;
+                    } else if (x >= maxX || x <= 30) {
+                        x = Math.max(30, Math.min(x, maxX));
+                        mode = "turn";
+                        frameIndex = 0;
+                        lastFrameTime = time;
+                        showFrame(turnFrames[0]);
+                    }
+                } else if (mode === "expression") {
+                    if (time >= expressionUntil) {
+                        mode = "walk";
+                        frameIndex = 0;
+                        lastFrameTime = time;
+                        showFrame(walkFrames[0]);
+                        scheduleExpression(time);
+                    }
+                } else if (mode === "turn") {
+                    if (time - lastFrameTime > 180) {
+                        frameIndex++;
+
+                        if (frameIndex < turnFrames.length) {
+                            showFrame(turnFrames[frameIndex]);
+                        } else {
+                            direction *= -1;
+                            turnCount++;
+                            mode = "pause";
+                            frameIndex = 0;
+                            lastFrameTime = time;
+
+                            if (turnCount % 3 === 0) {
+                                mode = "sit";
+                                pauseUntil = time + 3200;
+                                showFrame(sitFrame);
+                            } else {
+                                pauseUntil = time + 1800;
+                                showFrame(idleFrames[0]);
+                            }
+                        }
+
+                        lastFrameTime = time;
+                    }
+                } else if (mode === "pause") {
+                    if (time - lastFrameTime > 650) {
+                        frameIndex = (frameIndex + 1) % idleFrames.length;
+                        showFrame(idleFrames[frameIndex]);
+                        lastFrameTime = time;
+                    }
+
+                    if (time >= pauseUntil) {
+                        mode = "walk";
+                        frameIndex = 0;
+                        lastFrameTime = time;
+                        showFrame(walkFrames[0]);
+                    }
+                } else if (mode === "sit") {
+                    if (time >= pauseUntil) {
+                        mode = "walk";
+                        frameIndex = 0;
+                        lastFrameTime = time;
+                        showFrame(walkFrames[0]);
+                    }
+                }
+
+                updatePosition();
+                requestAnimationFrame(animate);
+            }
+
+            updatePosition();
+
+            requestAnimationFrame((time) => {
+                scheduleExpression(time);
+                animate(time);
+            });
         }
-      }
-
-      else if (mode === "pause") {
-        if (time - lastFrameTime > 650) {
-          frameIndex = (frameIndex + 1) % idleFrames.length;
-          showFrame(idleFrames[frameIndex]);
-          lastFrameTime = time;
-        }
-
-        if (time >= pauseUntil) {
-          mode = "walk";
-          frameIndex = 0;
-          lastFrameTime = time;
-          showFrame(walkFrames[0]);
-        }
-      }
-
-      else if (mode === "sit") {
-        if (time >= pauseUntil) {
-          mode = "walk";
-          frameIndex = 0;
-          lastFrameTime = time;
-          showFrame(walkFrames[0]);
-        }
-      }
-
-      updatePosition();
-      requestAnimationFrame(animate);
     }
-
-    updatePosition();
-
-    requestAnimationFrame((time) => {
-      scheduleExpression(time);
-      animate(time);
-    });
-  }
-}
-
 </script>
 
 <style>
-  .blob-stage {
-    position: relative;
-    width: 100%;
-    height: 180px;
-    overflow: hidden;
-    margin-top: 2.5rem;
-  }
-
-  .blob-ground {
-  position: absolute;
-  bottom: 30px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: rgba(181, 192, 212, 0.25);
-  z-index: 0;
-}
-
-  .blob-character {
-    z-index: 1;
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    width: 68px;
-    height: 96px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    will-change: left, transform;
-  }
-
-  .blob-character img {
-    display: block;
-    width: 68px;
-    height: 92px;
-    object-fit: contain;
-    image-rendering: pixelated;
-    user-select: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .blob-character {
-      left: 30px;
+    .blob-stage {
+        position: relative;
+        width: 100%;
+        height: 180px;
+        overflow: hidden;
+        margin-top: 2.5rem;
     }
-  }
 
-  /* The little caption */
-.blob-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
+    .blob-ground {
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(181, 192, 212, 0.25);
+        z-index: 0;
+    }
 
-.blob-subcaption {
-  color: var(--color-muted);
-  font-size: 0.75rem;
-}
+    .blob-character {
+        z-index: 1;
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        width: 68px;
+        height: 96px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        will-change: left, transform;
+    }
 
-.blob-note {
-  text-align: right;
-}
+    .blob-character img {
+        display: block;
+        width: 68px;
+        height: 92px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        user-select: none;
+    }
 
-.blob-note strong {
-  color: var(--color-accent);
-  font-size: 0.9rem;
-}
+    @media (prefers-reduced-motion: reduce) {
+        .blob-character {
+            left: 30px;
+        }
+    }
 
-/* Tiny pixel footprints */
-.blob-footsteps {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
+    /* The little caption */
+    .blob-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
 
-.blob-footsteps i {
-  width: 4px;
-  height: 6px;
-  background: rgba(76, 200, 194, 0.5);
-  transform: rotate(-30deg);
-}
+    .blob-subcaption {
+        color: var(--color-muted);
+        font-size: 0.75rem;
+    }
 
-.blob-footsteps i:nth-child(even) {
-  transform: translateY(-5px) rotate(30deg);
-  opacity: 0.6;
-}
+    .blob-note {
+        text-align: right;
+    }
 
-.blob-greeting {
-  position: absolute;
-  z-index: 3;
-  top: 8px;
-  left: 50%;
-  padding: 8px 13px;
-  border: 1px solid rgba(76, 200, 194, 0.45);
-  border-radius: 12px;
-  background: var(--color-surface);
-  color: var(--color-accent);
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  font-weight: 700;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translate(-50%, 8px) scale(0.9);
-  transition: opacity 250ms ease, transform 250ms ease;
-  pointer-events: none;
-}
+    .blob-note strong {
+        color: var(--color-accent);
+        font-size: 0.9rem;
+    }
 
-.blob-stage.is-greeting .blob-greeting {
-  opacity: 1;
-  transform: translate(-50%, 0) scale(1);
-}
+    /* Tiny pixel footprints */
+    .blob-footsteps {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+    }
 
+    .blob-footsteps i {
+        width: 4px;
+        height: 6px;
+        background: rgba(76, 200, 194, 0.5);
+        transform: rotate(-30deg);
+    }
+
+    .blob-footsteps i:nth-child(even) {
+        transform: translateY(-5px) rotate(30deg);
+        opacity: 0.6;
+    }
+
+    .blob-greeting {
+        position: absolute;
+        z-index: 3;
+        top: 8px;
+        left: 50%;
+        padding: 8px 13px;
+        border: 1px solid rgba(76, 200, 194, 0.45);
+        border-radius: 12px;
+        background: var(--color-surface);
+        color: var(--color-accent);
+        font-family: var(--font-heading);
+        font-size: 0.85rem;
+        font-weight: 700;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translate(-50%, 8px) scale(0.9);
+        transition:
+            opacity 250ms ease,
+            transform 250ms ease;
+        pointer-events: none;
+    }
+
+    .blob-stage.is-greeting .blob-greeting {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
 </style>
